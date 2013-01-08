@@ -4,6 +4,7 @@ var express = require('express')
 var app = express()
 
 app.root = __dirname;
+app.use(express.static(app.root + '/public'));
 var config = require('./config/config')
 
 
