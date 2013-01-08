@@ -13,6 +13,7 @@ exports.category = function(req,res){
     var cate_2 = req.params.cate_2;
     
     if(cate_1 === "")cate_1="WINDOWS";
+    if(cate_2 === undefined || cate_2 === null)cate_2 = ""
     
     Soft.find({cate_1:cate_1,cate_2:cate_2},function(err,softs){
         
