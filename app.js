@@ -6,7 +6,7 @@ var app = express()
 app.root = __dirname;
 var config = require('./config/config')
 
-
+//test
 var mongoose = require('mongoose')
 mongoose.connect(config.settings.db)
 
