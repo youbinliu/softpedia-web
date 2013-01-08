@@ -7,5 +7,5 @@ module.exports.setup = function (app) {
   app.get('/:cate_1/',soft.category)
   app.get('/:cate_1/:cate_2',soft.category)
   
-  app.get('/search',soft.search)
+  app.post('/search',soft.search)
 }
