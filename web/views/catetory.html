@@ -1,0 +1,81 @@
+<% include head.html %>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Softpedia</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Windows</a></li>
+              <li><a href="#t">Games</a></li>
+              <li><a href="#">Drivers</a></li>
+              <li><a href="#">Mac</a></li>
+              <li><a href="#">Linux</a></li>
+              <li><a href="#">Scripts</a></li>
+              <li><a href="#">Handheld</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div id="wrap">
+
+      <!-- Begin page content -->
+      <div class="container">
+        
+        <!-- Docs nav
+        ================================================== -->
+        <div class="row">
+          <div class="span3 bs-docs-sidebar">
+            <ul class="nav nav-list bs-docs-sidenav">
+              <li><a href="#"><i class="icon-chevron-right"></i> Antri</a></li>
+              <li><a href="#"><i class="icon-chevron-right"></i> Grid system</a></li>
+              <li><a href="#"><i class="icon-chevron-right"></i> Fluid grid system</a></li>
+              <li><a href="#"><i class="icon-chevron-right"></i> Layouts</a></li>
+              <li><a href="#"><i class="icon-chevron-right"></i> Responsive design</a></li>
+            </ul>
+          </div>
+          <div class="span9">
+    	  		<div class="container">
+          			<div class="input-prepend input-append" id="searchwrap">
+						<span class="add-on">Windows</span>
+						<input class="span4" id="keywords" type="text">
+						<button class="btn btn-primary" type="button">Search!</button>
+					</div>
+				</div>
+                <%if(softs.length){%>
+                    <% softs.forEach(function(soft){ %>
+                        <div class="contaniner page-header">
+        				<h4><%=soft.name%></h4>
+    					<i class="icon-tag"></i> <%=soft.cate_1%> - <%=soft.cate_2%><br>
+    					<i class="icon-refresh"></i><%=soft.updateDate%><br>
+    					<i class="icon-download-alt"></i>
+    					<a href='#'>download</a> <i class="icon-search"></i><a href="<%=soft.url%></a>">link</a></br>
+    					<i class="icon-file"></i><%=soft.description%><br>
+
+				</div>
+                    <% }) %>
+				
+                <%}else{%>
+                
+                <%}%>
+		  </div>
+
+        
+      </div>
+
+    </div>
+
+   
+    <!-- Le javascript
+    ================================================== -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
