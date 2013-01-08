@@ -1,0 +1,27 @@
+{
+    "name": "softpedia-crawler",
+    "version": "0.0.1",
+    "engines": {
+        "node": ">=0.6.0"
+        },
+    "author": {
+        "name": "eliot liu",
+        "email": "china.youbinliu@gmail.com"
+        },
+    "url": "https://github.com/youbinliu/softpedia-crawler",
+    "dependencies": {
+        "express": "latest",
+        "express-namespace": "latest",
+        "ejs": "latest",
+        "htmlparser": "latest",
+        "request":  "latest",
+        "jquery":"latest",
+        "mongoose":"latest",
+        "generic-pool":"latest"
+    },
+    "repository" : [
+        { "type":"git", "url":"https://github.com/youbinliu/softpedia-crawler.git" }
+    ],
+    "license": "MIT",
+    "description": "node mongoose mongodb htmlparser build another softpedia"
+}
