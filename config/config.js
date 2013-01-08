@@ -8,7 +8,7 @@ exports.appSet = function(app){
     app.set('view engine', 'html');
     
 
-    //app.use(express.static(app.root + '/public'));
+    app.use(express.static(app.root + '/public'));
     app.use(express.logger(':method :url :status'))    
     
     app.use(express.bodyParser())
