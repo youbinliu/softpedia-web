@@ -20,7 +20,7 @@
         "generic-pool":"latest"
     },
     "repository" : [
-        { "type":"git", "url":"https://github.com/youbinliu/softpedia-crawler.git" }
+        { "type":"git", "url":"https://github.com/youbinliu/softpedia.git" }
     ],
     "license": "MIT",
     "description": "node mongoose mongodb htmlparser build another softpedia"

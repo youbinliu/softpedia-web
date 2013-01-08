@@ -16,7 +16,6 @@ modelFiles.forEach(function(modelName){
     require(modelsPath+'/'+modelName)
 })
 
-
 config.appSet(app)
 require("./config/routes").setup(app)
 

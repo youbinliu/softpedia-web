@@ -1,0 +1,45 @@
+<% include head.html %>
+
+  
+    <div id="wrap">
+
+      <!-- Begin page content -->
+      <div class="container">
+        
+        <div class="row">          
+          <div class="span9">
+    	  		<div class="container">
+          			<div class="input-prepend input-append" id="searchwrap">
+						<span class="add-on"><%=cate1%></span>
+						<input class="span4" id="keywords" type="text">
+						<button class="btn btn-primary" type="button">Search!</button>
+					</div>
+				</div>
+				<div class="container page-header">
+					<h3>Search Results</3>
+				</div>
+                <%if(softs.length){%>
+                    <% softs.forEach(function(soft){ %>
+                        <div class="contaniner page-header">
+        				<h4><%=soft.name%></h4>
+    					<i class="icon-tag"></i> <%=soft.cate_1%> <%if(cate2 !== ""){%> - <%=cate2%><%}%><br>
+    					<%if(soft.updateDate !== "null"){%> <i class="icon-refresh"></i><%=soft.updateDate %><br><%}%>
+    					<i class="icon-download-alt"></i>
+    					<a href='#'>Download</a> <i class="icon-search"></i><a href="<%=soft.url%>">Link</a></br>
+    					<i class="icon-file"></i><%=soft.description%><br>
+
+				</div>
+                    <% }) %>
+				
+                <%}else{%>
+                
+                <%}%>
+		  </div>
+
+        
+      </div>
+
+    </div>
+
+   
+<% include foot.html %> 

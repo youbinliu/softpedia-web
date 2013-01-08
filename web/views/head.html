@@ -14,3 +14,27 @@
     
     <link href="/css/style.css" rel="stylesheet">
   </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Softpedia</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li <%if(cate1 === "WINDOWS"){%>class="active"<%}%>><a href="/WINDOWS/">Windows</a></li>
+              <li <%if(cate1 === "GAMES"){%>class="active"<%}%>><a href="/GAMES/">Games</a></li>
+              <li <%if(cate1 === "DRIVERS"){%>class="active"<%}%>><a href="/DRIVERS/">Drivers</a></li>
+              <li <%if(cate1 === "MAC"){%>class="active"<%}%>><a href="/MAC/">Mac</a></li>
+              <li <%if(cate1 === "LINUX"){%>class="active"<%}%>><a href="/LINUX/">Linux</a></li>
+              <li <%if(cate1 === "SCRIPT"){%>class="active"<%}%>><a href="/SCRIPT/">Scripts</a></li>
+              <li <%if(cate1 === "HANDLELD"){%>class="active"<%}%>><a href="/HANDLELD/">Handheld</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>

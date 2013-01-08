@@ -32,7 +32,7 @@ exports.appSet = function(app){
 }
 
 exports.settings = {
-    db:'mongodb://localhost/softpedia',
+    db:'mongodb://chinagrid:chinagrid@211.69.198.224:27017/softpedia',
     port:8000    
 }
 
