@@ -31,8 +31,8 @@ exports.appSet = function(app){
     app.set('showStackError',false)
 }
 
-exports.settings = {
-    db:'mongodb://chinagrid:chinagrid@211.69.198.224:27017/softpedia',
+exports.settings  {
+    db:'mongodb://localhost/softpedia',
     port:8000    
 }
 
