@@ -25,6 +25,7 @@
 							<span class="add-on"><%=cate1%></span>
 							<input class="span4" name="keywords" type="text"/>
 							<input name="cate" value="<%=cate1%>" type="hidden"/>
+							<input name="page" value="1" type="hidden"/>
 							<button class="btn btn-primary" type="submit">Search!</button>
 						</div>
 					</form>
@@ -39,7 +40,8 @@
     					<i class="icon-tag"></i> <%=soft.cate_1%> <%if(cate2 !== ""){%> - <%=cate2%><%}%><br>
     					<%if(soft.updateDate !== "null"){%> <i class="icon-refresh"></i><%=soft.updateDate %><br><%}%>
     					<i class="icon-download-alt"></i>
-    					<a href='#'>Download</a> <i class="icon-search"></i><a href="<%=soft.url%>">Link</a></br>
+    					<a href='javascript:;' class="softDownload" link="<%=soft.url%>">Download</a> 
+    					<i class="icon-search"></i><a href="<%=soft.url%>">Link</a></br>
     					<i class="icon-file"></i><%=soft.description%><br>
 
 				</div>

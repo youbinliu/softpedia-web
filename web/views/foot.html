@@ -1,4 +1,19 @@
  <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+ <script src="/js/bootstrap.min.js"></script>
+ <script  type="text/javascript">
+ 	$(".softDownload").bind("click",function(){
+       link = $(this).attr("link")
+       $.post("/download",{link:link},function(url){
+       		if(url == ""){
+       			alert("sorry ,it may need money")
+       			return
+       		}       
+       		
+       		//$("body").append("<iframe style='display:none' name='import_frame' width=1px height=1px src='"+url+"'></iframe>")		
+       		window.open(url, "_blank");
+       		//new Image().src = url
+       })
+     })
+ </script>   
   </body>
 </html>

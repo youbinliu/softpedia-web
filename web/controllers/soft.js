@@ -1,9 +1,9 @@
 var mongoose = require("mongoose")
 ,   Soft = mongoose.model("Softs")
 ,	Config = require("../../config/config")
-,	$ = require('jquery')
 ,   request = require('request')
-
+,	$ = require('jquery')
+,	Url = require('url');
 exports.category = function(req,res){
     
     var cate_1 = req.params.cate_1;
@@ -27,10 +27,35 @@ exports.category = function(req,res){
     
 }
 
+var requestAction = function(url,cb){
+	request({ 
+            uri:url,
+            headers:{"User-Agent":"Mozilla/5.0"
+            },
+            proxy:"http://122.72.80.100:80",
+            encoding:"utf-8"
+            },
+            function (error, response, body) {
+            if (error || response.statusCode !== 200) {
+                console.log('Error when contacting '+url);
+                cb(null)
+                return;
+            }
+            
+            if(body === undefined){
+                console.log("error:"+url)    
+                cb(null)            
+                return;
+            }
+            cb(body)
+	})
+}
+
 exports.search = function(req,res){
 	
 	var cate = req.body.cate
-	var keywords = req.body.search
+	var keywords = req.body.keywords
+	var page = parseInt(req.body.page)
 	
 	var url = ""
 	
@@ -52,51 +77,99 @@ exports.search = function(req,res){
 		
 	}
 	
-	request({ 
-            uri:url,
-            headers:{"User-Agent":"Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.11 (KHTML, like Gecko)"+
-            "Chrome/23.0.1271.97 Safari/537.11"}
-            },
-            function (error, response, body) {
-            if (error || response.statusCode !== 200) {
-                console.log('Error when contacting '+url);
-                return;
-            }
-			
-            if(body === undefined){
-                console.log("error:"+url)                    
-                return;
-            }
-            
-            var tables = $(body).find(".narrow_listheadings")
-            
-            if(tables==null || tables ==""){
-            	console.log("tables are not finded")
-            	return
-            }
-            
-            tables.each(function(){
-            	tds = this.find("td")
-            	if(tds.length == 3){
-            		var icon = td[0].find("img").attr("src")
-            		var name = td[1].children("h2").children("a").html()
-            		var developer = td[1].children("h2").children("span").children("a").html()
-            		var description = td[1].children("p").html()
-            		var downloads = td[2].children("p").html()
-            		
-            		console.log("icon:"+icon)
-            		console.log("name:"+name)
-            		console.log("developer:"+developer)
-            		console.log("description:"+description)
-            		console.log("downloads:"+downloads)
-            	}
-            	
-            })
-            
-    })
+	if(page>0)url = url+"&p_page="+page
+	
+	url = encodeURI(url)
+	
+	console.log(url)
+	
+	requestAction(url,function(body){
+		if(body == null){
+			res.render("search",{softs:[],cate1:"WINDOWS"})
+			return
+		}
+		
+        var tables = $(body).find(".narrow_listheadings")
+        
+        if(tables==null || tables ==""){
+        	console.log("tables are not finded")
+        	res.render("search",{softs:[],cate1:"WINDOWS"})
+        	return
+        }
+        var softs = [];
+        tables.each(function(){
+        	tr = $(this).find("tr")
+        	tds = $(tr[0]).find("td")
+        	
+        	if(tds.length == 3){
+        		var icon = $(tds[0]).find("img").attr("src")
+        		var name = $(tds[1]).children("h2").children("a").html()
+        		var link = $(tds[1]).children("h2").children("a").attr("href")
+        		var developer = $(tds[1]).children("h2").children("span").children("a").html()
+        		var description = $(tds[1]).children("p").html()
+        		var more = "<i class='icon-time'></i>"+$(tds[2]).children("p").html()
+        		more = more.replace(/<br \/>/g,"<i class=\"icon-file\"></i>")
+        		
+        		soft = {}
+        		soft.icon = icon
+        		soft.name = name
+        		soft.link = link
+        		soft.developer = developer
+        		soft.description = description
+        		soft.more = more;
+        		softs.push(soft)
+        	}
+        	
+        })
+        pre = page - 1
+        next = page + 1
+        res.render("search",{softs:softs,cate1:cate,keywords:keywords,pre:pre,next:next})
+   	})
     
-    res.render("search")
-	
-	
-	
 }
+
+exports.download = function(req,res){
+	var link = req.body.link
+	
+	requestAction(link,function(body){
+		if(body == null){
+			res.send("")
+			return
+		}
+		
+		dlpage = $(body).find("img[src='http://s1.softpedia-static.com/base_img/download_button_2011a.gif']").parent().attr("href")
+		
+		requestAction(dlpage,function(data){
+			if(data == null){
+				res.send("")
+				return
+			}
+			atags = $(data).find("a")
+			atags.each(function(){
+				url = $(this).attr("href")
+				pn = Url.parse(url).pathname;
+				q = Url.parse(url).query
+				if(pn === "/dyn-postdownload.php" && q != "p=6635&t=0&i=1"){
+					requestAction(url,function(d){
+						if(d == null){
+							res.send("")
+							return
+						}
+						
+						aa = $(d).find("a")
+						aa.each(function(){
+							if($(this).html() === "click here"){
+								res.send($(this).attr("href"))
+								return true
+							}
+						})
+					})
+				}
+			})
+			
+		})
+	})
+	
+	//res.send("")
+}
+

@@ -7,32 +7,74 @@
       <div class="container">
         
         <div class="row">          
-          <div class="span9">
+          <div class="span10">
     	  		<div class="container">
-          			<div class="input-prepend input-append" id="searchwrap">
-						<span class="add-on"><%=cate1%></span>
-						<input class="span4" id="keywords" type="text">
-						<button class="btn btn-primary" type="button">Search!</button>
-					</div>
+    	  			<form method="post" action="/search">
+	          			<div class="input-prepend input-append" id="searchwrap">          				
+							<span class="add-on"><%=cate1%></span>
+							<input class="span4" name="keywords" type="text" value="<%=keywords%>"/>
+							<input name="cate" value="<%=cate1%>" type="hidden"/>
+							<input name="page" value="1" type="hidden"/>
+							<button class="btn btn-primary" type="submit">Search!</button>
+						</div>
+					</form>
 				</div>
-				<div class="container page-header">
-					<h3>Search Results</3>
-				</div>
-                <%if(softs.length){%>
-                    <% softs.forEach(function(soft){ %>
-                        <div class="contaniner page-header">
-        				<h4><%=soft.name%></h4>
-    					<i class="icon-tag"></i> <%=soft.cate_1%> <%if(cate2 !== ""){%> - <%=cate2%><%}%><br>
-    					<%if(soft.updateDate !== "null"){%> <i class="icon-refresh"></i><%=soft.updateDate %><br><%}%>
-    					<i class="icon-download-alt"></i>
-    					<a href='#'>Download</a> <i class="icon-search"></i><a href="<%=soft.url%>">Link</a></br>
-    					<i class="icon-file"></i><%=soft.description%><br>
-
-				</div>
-                    <% }) %>
 				
+                <%if(softs.length){%>
+                    <% softs.forEach(function(soft){ %>                  	
+                    	
+                    	<div class="contaniner">
+                    		<div class="span10">
+	        					<h4><%=soft.name%></h4> 
+	        				</div> 
+	        				<div class="span10  page-header">
+		        				<div class="span1">
+	                    			<img src="<%=soft.icon%>" />
+		        				</div>  
+		        				<div class="span8">		
+			    					<%if(soft.developer != undefined){%><i class="icon-user"></i><%= soft.developer%><br><%}%>
+			    					<i class="icon-download-alt"></i><a href="javascript:;" class="softDownload" link="<%=soft.link%>">Donwload</a>
+			    					<i class="icon-search"></i><a href="<%=soft.link%>">Link</a><br>
+			    					<%- soft.more%><br>
+			    					<i class="icon-file"></i><%- soft.description%><br>
+		    					</div>
+	    					</div>
+                    	</div>                        
+				
+                    <% }) %>
+                    
+                    <div class="contaniner">
+                		
+                		<% if(pre>0){ %>
+                			<div class="span1">
+	                		<form method="post" action="/search">
+			          			<div class="input-append">     				
+									<input name="keywords" type="hidden" value="<%=keywords%>"/>
+									<input name="cate" value="<%=cate1%>" type="hidden"/>
+									<input name="page" value="<%=pre%>" type="hidden"/>
+									<button class="btn btn-primary" type="submit">Previous </button>
+								</div>
+							</form>
+                			</div>
+                		<%}%>
+                		<% if(next > 0) {%>
+                			<div class="span1">
+                			<form method="post" action="/search">
+			          			<div class="input-append">     				
+									<input name="keywords" type="hidden" value="<%=keywords%>"/>
+									<input name="cate" value="<%=cate1%>" type="hidden"/>
+									<input name="page" value="<%=next%>" type="hidden"/>
+									<button class="btn btn-primary" type="submit">Next</button>
+								</div>
+							</form>
+							</div>
+                		<% } %>
+                		
+                		
+                    </div>
+					
                 <%}else{%>
-                
+                	sorry ,find nothing, and it dont support Chinese now
                 <%}%>
 		  </div>
 
